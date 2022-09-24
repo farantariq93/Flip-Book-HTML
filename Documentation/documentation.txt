@@ -1,0 +1,129 @@
+
+Link
+https://github.com/blasten/turn.js
+
+********Styles********
+
+//Double Mode
+
+#magazine{
+	width:80%;
+	height:500px;
+	margin: 0 auto;
+}
+#magazine .turn-page{
+	background-color:#ccc;
+	background-size:100% 100%;
+}
+
+//Single Mode for Smart Phones
+#magazine-phone{
+	width:660px;
+	height:600px;
+	margin: 0 auto;
+}
+#magazine-phone .turn-page{
+	background-color:#ccc;
+	background-size:100% 100%;
+}
+
+
+*********Responsive Mode**********
+@media only screen and (max-width: 768px){
+	.toolkit #magazine{
+		display: none;
+	}
+}
+
+@media only screen and (min-width: 780px){
+	.toolkit #magazine-phone{
+		display: none;
+	}
+}
+
+@media only screen and (min-width: 490px) and (max-width: 768px){
+	.toolkit #magazine-phone{
+		width:400px !important;
+		height:500px !important;
+		margin: 0 auto;
+	}
+}
+
+@media only screen and (max-width: 480px){
+	.toolkit #magazine-phone{
+		width:280px !important;
+		height:500px !important;
+		margin: 0 auto;
+	}
+}
+
+
+Javascript
+<script src="js/turn.min.js"></script>
+
+<script>
+	$(document).ready(function() {
+
+	$('.image-popup-no-margins').magnificPopup({
+		type: 'image',
+		closeOnContentClick: true,
+		closeBtnInside: false,
+		fixedContentPos: true,
+		mainClass: 'mfp-no-margins mfp-with-zoom',
+		image: {
+			verticalFit: false
+		},
+		zoom: {
+			enabled: true,
+			duration: 500 
+		}
+	});
+
+	});
+
+	// Magazine Large Screen
+	$(window).ready(function() {
+	$('#magazine').turn({
+		display: 'double',
+		acceleration: true,
+		gradients: !$.isTouch,
+		elevation:50,
+		when: {
+			turned: function(e, page) {
+				/*console.log('Current view: ', $(this).turn('view'));*/
+			}
+		}
+	});
+	});
+
+
+	// Magazine Small Screen
+	$(window).ready(function() {
+	$('#magazine-phone').turn({
+		display: 'single',
+		acceleration: true,
+		gradients: !$.isTouch,
+		elevation:50,
+		when: {
+			turned: function(e, page) {
+				/*console.log('Current view: ', $(this).turn('view'));*/
+			}
+		}
+	});
+	});
+
+	$(window).bind('keydown', function(e){
+		
+		if (e.keyCode==37)
+			$('#magazine-phone').turn('previous');
+		else if (e.keyCode==39)
+			$('#magazine-phone').turn('next');
+
+		if (e.keyCode==37)
+			$('#magazine').turn('previous');
+		else if (e.keyCode==39)
+			$('#magazine').turn('next');
+			
+	});
+
+</script>
